@@ -12,6 +12,8 @@ var username = "";
 // la posizione va presa dal GPS
 var myPosizione = {"lat":"41.800278" , "lon" : "12.238889", "address":"impossibile ottenere la posizione"};
 
+var myTheseusItems;
+/*
 var myTheseusItems = [{"type":"standalone", 
 					   "code":"PROTO-001", 
 					   "color":"blue",  
@@ -30,7 +32,7 @@ var myTheseusItems = [{"type":"standalone",
 					  }
 					 ];
 
-
+*/
 					 
 					 
 
@@ -40,7 +42,6 @@ var myTheseusItems = [{"type":"standalone",
 /*   CONTROLLER   */
 function startApp(){
 	  hideAll(["benvenuti"]);
-
 }
 
 
@@ -56,6 +57,7 @@ function getUser(username){
       "mobile":"+39-320-3918907",
       "password":"",
 	}];
+	getMyTheseus();
 	return true;
   }else if(username=="giuseppe"){
       user = [{
@@ -76,6 +78,56 @@ function getUser(username){
 }
 
 
+function getMyTheseus(){
+	// http://theseus-sms.azurewebsites.net/getItems.php
+	//myTheseusItems
+	
+	$.ajax({
+		type       : "POST",
+		data       : {username : 'username'},
+		crossDomain: true,
+		dataType   : 'json',
+        url: "http://theseus-sms.azurewebsites.net/getItems.php",
+        error: function (jqXHR, textStatus, errorThrown) {
+			$("#loginError").html("ERROR");
+
+			console.log("ERROR");
+            console.log(jqXHR)
+        },
+        success: function (msg) {
+				  $("#loginError").html("SUCCESS");
+
+			console.log("SUCCESS");
+			myTheseusItems=msg;
+            console.log(msg);
+        }
+    });
+	return;
+	
+	$.getJSON( "http://theseus-sms.azurewebsites.net/getItems.php", function( data ) {
+		alert(data);
+		//myTheseusItems=data;
+		/*
+	  var items = [];
+	  $.each( data, function( key, val ) {
+		items.push( "<li id='" + key + "'>" + val + "</li>" );
+	  });
+	 
+	  $( "<ul/>", {
+		"class": "my-new-list",
+		html: items.join( "" )
+	  }).appendTo( "body" );
+	  */
+	});
+	/*
+	$.ajax({
+		url: "http://theseus-sms.azurewebsites.net/getItems.php",
+		context: document.body
+	}).done(function() {
+		$( this ).addClass( "done" );
+	});
+	*/
+}
 
 
 /****  VIEW    ****/
@@ -92,6 +144,11 @@ function hideAll(appo){
 
 function showLoginForm(){
 	hideAll(["login"]);
+	
+	
+	getMyTheseus();
+	
+	
 	//$("#login").show();
 	/*
   document.getElementById("benvenuti").style.display = "none";  
