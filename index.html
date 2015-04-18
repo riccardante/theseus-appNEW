@@ -1,39 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> 
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 -->
-<link rel="stylesheet" href="./css/themes/default/jquery.mobile-1.4.5.min.css">
-<script src="./js/jquery.min.js"></script>
-<script src="./js/jquery.mobile-1.4.5.min.js"></script>
-
-<script src="./js/theseus.js"></script>
+ <link rel="stylesheet" href="./css/themes/default/jquery.mobile-1.4.5.min.css">
+ <link rel="stylesheet" type="text/css" href="./css/theseus.css" />
+ <script src="./js/jquery.min.js"></script>
+ <script src="./js/jquery.mobile-1.4.5.min.js"></script>
+ <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
+ <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+ <script src="./js/theseus.js"></script>
 
 </head>
 <body>
 
 <div data-role="page" id="pageone" data-theme="a">
+<!--
   <div data-role="panel" id="myPanel"> 
     <h2>Menu</h2>
     <p>You can close the panel by clicking outside the panel, pressing the Esc key or by swiping.</p>
   </div> 
+-->
+    <!--   MENU  -->
+	<div data-role="panel" data-display="push" data-theme="b" id="myPanel">
 
+		<ul data-role="listview">
+            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                <li><a href="#panel-responsive-page2">Home</a></li>
+				<li><a href="#panel-responsive-page2">Proto-001</a></li>
+                <li><a href="#panel-responsive-page2">Proto-002</a></li>
+                <li><a href="#panel-responsive-page2">Proto-003</a></li>
+                <li><a href="#panel-responsive-page2">Profile</a></li>
+                <li><a href="#panel-responsive-page2">About</a></li>
+                <li><a href="#panel-responsive-page2">Log off</a></li>
+		</ul>
+
+	</div><!-- /panel -->
+  
+  <!--  HEADER -->
   <div data-role="header">
-  <a href="#myPanel" class="jqm-navmenu-link ui-nodisc-icon ui-alt-icon ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all" data-role="button" role="button">Menu</a>
+  <a href="#myPanel" id="menuBtn" class="jqm-navmenu-link ui-nodisc-icon ui-alt-icon ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all" data-role="button" role="button">Menu</a>
     <h1>Theseus</h1>
   </div>
 
+  <!--  SPLASH  -->
   <div id="benvenuti" data-role="main" class="ui-content">
-    <p>Benvenuti in Theseus</p>
+    <p><img src="./images/logo.png"/></p>
   </div>
+ 
+  <!--  LOGIN   -->
   <div id="login" data-role="main" class="ui-content">
-    <p>Login in Theseus</p>
+    <div id="loginError"></div>
+      <form>
+        <!-- <fieldset>
+         <legend>Username</legend>
+		 -->
+          <section><p><label for="signin-username">Username:</label> <input id="signin-username" type="text" placeholder="username" required="required" value="riccardante"></p></section>
+         <!-- </fieldset>
+         <fieldset>
+        <legend>Password</legend>
+		-->
+        <section><p><label for="signin-password">Password:</label> <input id="signin-password" type="password" placeholder="****" required="required" ></p></section>
+       <!-- </fieldset> -->
+
+      <a id="bFormSignIn" class="ui-btn ui-corner-all" href="#">Sign in</a>
+      </form>   
   </div>
 
-  <!--  
+    <!-- HOMETHESEUS -->
+    <div id="homeTheseus" data-role="main" class="ui-content">
+        <p></p>      
+    </div>
+
+	
+
+
+	
+    <!-- PROFILO -->
+    <div id="profilo" data-role="main" class="ui-content">
+        <div class="userRef">
+          <div class="imgLeft"><img id="profileUserPhoto" src=""></img></div>
+          <div id="profileUserName" class="userDetail"></div>
+          <div id="profileUserSurname"class="userDetail"></div>
+        </div>
+        <div class="userRef">
+          <div id="profileUserEmail" class="userDetail"></div>
+          <div id="profileUserMobile"class="userDetail"></div>
+          <!-- <div id="profileUserPassword" class="userDetail"></div> -->
+        </div>
+        <!-- <a id="bProfileEdit" role="button" href="#">Modifica</a> -->
+        <a id="btn-profileLogOff" role="button" href="#">Logout</a>
+    </div>
+	
+	
+  <!-- 
   <div data-role="footer">
     <h1>Page Footer</h1>
   </div> 

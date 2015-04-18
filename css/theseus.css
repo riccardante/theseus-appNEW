@@ -1,0 +1,704 @@
+
+
+
+/*
+html {
+  height: 100%;
+  font-size: 62.5%; /* Setting base font to 10px and define all your units in rem. 1rem = 10px ******* /
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+body {
+  margin: 0;
+  height: 100%;
+  display: block
+  overflow: hidden;
+}
+
+button,
+a[role="button"],
+.button {
+  width: 80%;
+  height: 3.8rem;
+  margin: 1em auto 1rem;
+  padding: 0 1.5rem;
+  -moz-box-sizing: border-box;
+  /* display: inline-block; ******* /
+  display: block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  background: #fafafa url(images/buttons/recommend.png) repeat-x left bottom / auto 100%;
+  border: 0.1rem solid #a6a6a6;
+  border-radius: 0.2rem;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 3.8rem;
+  color: #333;
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem 0 rgba(255,255,255,0.3);
+  text-decoration: none;
+  outline: none;
+  
+}
+
+
+#splash{
+  height:100%;
+  background-color: #ffffff;    
+}
+
+#splash #logo{
+height: 234px;
+background: url(images/logo.jpg) no-repeat;
+width:320px;
+}
+
+
+#aboutApp{
+    background-color:#fff;
+    overflow-y:scroll;
+}
+#aboutApp p{
+    padding: 2rem;
+    font-size: 1.5rem;
+}
+
+
+.center{
+margin-left:auto;
+margin-right:auto;
+width:290px;
+}
+
+
+
+
+
+
+
+
+
+@media all and (max-height: 640px) and (min-height: 490px){
+  #map {
+    height: 575px !important; 
+  }
+}
+/*
+@font-face {
+  font-family: FiraSansOT-Light;
+  src: url(../fonts/FiraSansOT-Light.otf);
+}
+@font-face {
+  font-family: FiraSansOT-Medium;
+  src: url(../fonts/FiraSansOT-Medium.otf);
+}
+@font-face {
+  font-family: FiraSansOT-Regular;
+  src: url(../fonts/FiraSansOT-Regular.otf);
+}
+@font-face {
+  font-family: FiraSansOT-Bold;
+  src: url(../fonts/FiraSansOT-Bold.otf);
+}
+******* /
+html {
+  height: 100%;
+  font-size: 62.5%; /* Setting base font to 10px and define all your units in rem. 1rem = 10px ******* /
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+body {
+  margin: 0;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+.hidden {
+  visibility: hidden;
+}
+section[role="region"] {
+  height: 100%;
+}
+section[role="region"] > header.fixed:first-child {
+  position: absolute;
+  width: 100%;
+}
+.scrollable {
+  overflow: scroll;
+  height: 100%;
+  /* box-sizing: border-box;   ******* /
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
+}
+.scrollable.header {
+  border-top: transparent solid 5rem;
+}
+/* Setting proper paddings and margins ******* /
+section[role="region"] > .content {
+  padding: 0 3rem 1.5rem 3rem;
+  background: #fff;
+}
+section[role="region"] > .content header h2 {
+ margin: 3rem -3rem 1.5rem -3rem;
+}
+section[role="region"] > .content header:first-child h2 {
+  margin-top: 0;
+}
+section[role="region"] > .content [data-type="list"] {
+  margin: 0 -3rem;
+}
+section[role="region"] > .content [data-type="list"] li > p {
+  margin: 0 1.5rem;
+}
+section[role="region"] > .content [data-type="list"] li > a {
+  margin: 0 1.5rem;
+}
+section[role="region"] > .content [data-type="list"] li > a:after {
+  left: -1.5rem;
+  right: -1.5rem;
+}
+section[role="region"] > .content [data-type="list"] header {
+  padding: 0.5rem 1.5rem;
+}
+section[role="region"] > .content [data-type="list"] li > a > aside:not(.pack-end) {
+  margin-left: -1.5rem;
+}
+[aria-disabled="true"] {
+  pointer-events: none;
+}
+/* Fonts ******* /
+h1 { /* Main header ******* /
+  font-size: 2.5rem;
+  font-weight: normal;
+  font-family: FiraSansOT-Bold;
+}
+
+h2 { /* Subheader, Dialog title ******* /
+  font-size: 1.6rem;
+  font-weight: normal;
+  font-family: FiraSansOT-Medium;
+}
+p {
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 2.5rem;
+  font-family: FiraSansOT-Regular;
+}
+p.large { /* Dialog body ******* /
+  font-size: 2.3rem;
+  font-weight: 300;
+  line-height: 3rem;
+}
+p.alt { /* Body medium, Buttons ******* /
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 2.2rem;
+}
+p.small { /* Status bar ******* /
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+p.mini { /* Fine print ******* /
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+}
+p.micro { /* App icon label ******* /
+  font-size: 1.3rem;
+  line-height: 1.8rem;
+}
+progress {
+  margin-top: 20%;
+  margin-left: 45%;
+}
+ul, ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1.9rem;
+  font-weight: normal;
+  line-height: 2.5rem;
+  font-family: FiraSansOT-Light;
+}
+div[role="main"] {
+  background: #fff;
+  height: 100%;
+  height: calc(100% - 5rem);
+  overflow: hidden;
+}
+#map {
+height: 430px; 
+}
+.hideMap {
+  display: none;
+}
+#message h1{
+  text-align: center;
+  font-size: 2rem;
+}
+#messageLastEarthqueaks h1{
+  text-align: center;
+  font-size: 2rem;
+}
+#aboutApp {
+  padding: 1rem;
+  overflow: scroll;
+  height: 95%; 
+}
+.urlBoton {
+  background-color: #227BC9;
+  border-collapse: separate;
+  border-radius: 5px;
+  padding: 4px;
+}
+#contentEarthqueaks {
+  padding: 1rem;
+  overflow: scroll;
+  height: 91%;    
+}
+#listEarthqueaks li {
+  font-size: 1.3rem;
+  border-bottom: solid #BE4D2C;
+  height: auto;
+}
+/* Twitter ******* /
+#communication , #dashboard, #dettaglio, #bacheca{
+  padding: 1rem;
+  overflow: scroll;
+  height: 91%;    
+}
+#communication li, #dashboard li, #dettaglio li, #bacheca li {   
+  border-bottom: solid #BE4D2C;
+  height: auto;
+}
+#communication li p, #dashboard li p , #dettaglio li p, #bacheca li p{
+  font-size: 1.3rem;
+  padding-left: 60px;
+  font-family: FiraSansOT-Light;
+} 
+
+#dashboard li a, #bacheca li a {
+color: #000;
+} 
+
+.imgLeft {
+  float: left;
+  height: 70px;
+  width: 60px;
+}
+.communicationTitle {
+  font-size: 1.4rem;
+}
+.usertwitter {
+  font-size: 1.2rem;
+  color: #9E9E9E;
+}
+.tweetURL {
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+
+#div-MezzoTrasporto{
+ display: inline-block;
+ height: 24px;
+ width: 24px;
+ background: url(images/iconBicycle.png) no-repeat;
+}
+
+
+#homeCourier{
+   height: 95%;
+      overflow: hidden;
+}
+#homeCourier p{
+  height: 100%; 
+}
+
+
+#prof-mezzoDiTrasporto{
+    background-color:#000000;
+}
+
+#prof-bike{
+ display: inline-block;
+ height: 24px;
+ width: 24px;
+ background: url(images/iconBicycle.png) no-repeat;
+}
+
+#prof-scooter{
+ display: inline-block;
+ height: 24px;
+ width: 24px;
+ background: url(images/Transport-scooter-icon.png) no-repeat;
+}
+
+#prof-treno{
+ display: inline-block;
+ height: 24px;
+ width: 24px;
+ background: url(images/Transport-train-icon.png) no-repeat;
+}
+
+#prof-auto{
+ display: inline-block;
+ height: 24px;
+ width: 24px;
+ background: url(images/Transport-car-icon.png) no-repeat;
+}
+
+
+a[role="icona"]{
+  height: 3.8rem;
+  margin: 1em 1rem 1rem;
+  padding: 0 1.5rem;
+  -moz-box-sizing: border-box;
+  /* display: inline-block; ******* /
+  display: block;
+  vertical-align: middle;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 3.8rem;
+  color: #333;
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem 0 rgba(255,255,255,0.3);
+  text-decoration: none;
+  outline: none;
+  
+}
+
+
+
+
+ .my-legend .legend-title {
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 90%;
+  }
+
+ .my-legend .legend-info {
+      text-align: left;
+      margin-bottom: 8px;
+      font-weight: normal;
+      font-size: 90%;
+      line-height: 0.8rem;
+  }
+
+/*
+    .my-legend .legend-scale ul {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+      }
+    .my-legend .legend-scale ul li {
+      display: block;
+      float: left;
+      width: 50px;
+      margin-bottom: 6px;
+      text-align: center;
+      font-size: 80%;
+      list-style: none;
+      }
+    .my-legend ul.legend-labels li span {
+      display: block;
+      float: left;
+      height: 15px;
+      width: 50px;
+      }
+******* /
+ .my-legend .legend-source {
+      line-height: 1.8rem;
+      font-size: 70%;
+      color: #999;
+      clear: both;
+      }
+    .my-legend a {
+/*        margin-left:1rem;  ******* /
+      color: #777;
+      font-size: 1.2rem;
+  }
+  
+
+ #legprev{
+     position:absolute;
+     left:20px;
+     }
+
+ #legnext{
+     position:absolute;
+     right:20px;
+     }
+  #leg-accetta{
+      padding-left:30px;
+      }
+
+  #legend-position{
+  position:absolute;
+  padding: 5px;
+  top:60px;right:14px;
+  z-index:1;      
+    border-radius:3px;
+  width:220px;
+  border:1px solid rgba(0,0,0,0.4);
+  background-color: #ffffff;
+}
+
+
+  #legend-content{
+  position:absolute;
+  padding: 5px;
+  bottom:37px;right:14px;
+  z-index:1;      
+    border-radius:3px;
+  width:180px;
+  border:1px solid rgba(0,0,0,0.4);
+  background-color: #ffffff;
+}
+#legend-actionbar{
+  position:absolute;
+  padding: 5px;
+  bottom:0px;
+  left:0px;
+    right:0px;
+  z-index:1;      
+    border-radius:3px;
+  border:1px solid rgba(0,0,0,0.4);
+  background-color: #ffffff;
+
+}
+
+
+#homeCurruer{
+      padding: 1rem;
+  overflow: scroll;
+  height: 95%; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.m-signature-pad {
+   position: absolute; 
+  font-size: 10px;
+  width: 700px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  margin-left: -350px;
+  margin-top: -200px;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.08) inset;
+  border-radius: 4px;
+}
+
+.m-signature-pad:before, .m-signature-pad:after {
+	position: absolute;
+  z-index: -1;
+  content: "";
+	width: 40%;
+	height: 10px;
+	left: 20px;
+	bottom: 10px;
+	background: transparent;
+	-webkit-transform: skew(-3deg) rotate(-3deg);
+	-moz-transform: skew(-3deg) rotate(-3deg);
+	-ms-transform: skew(-3deg) rotate(-3deg);
+	-o-transform: skew(-3deg) rotate(-3deg);
+	transform: skew(-3deg) rotate(-3deg);
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.m-signature-pad:after {
+	left: auto;
+	right: 20px;
+	-webkit-transform: skew(3deg) rotate(3deg);
+	-moz-transform: skew(3deg) rotate(3deg);
+	-ms-transform: skew(3deg) rotate(3deg);
+	-o-transform: skew(3deg) rotate(3deg);
+	transform: skew(3deg) rotate(3deg);
+}
+
+.m-signature-pad--body {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 20px;
+  bottom: 60px;
+  border: 1px solid #f4f4f4;
+}
+
+.m-signature-pad--body
+  canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.02) inset;
+  }
+
+.m-signature-pad--footer {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  height: 40px;
+}
+
+.m-signature-pad--footer
+  .description {
+    color: #C3C3C3;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 1.8em;
+  }
+
+.m-signature-pad--footer
+  .button {
+    position: absolute;
+    bottom: 0;
+  }
+
+.m-signature-pad--footer
+  .button.clear {
+    left: 0;
+    width: 7rem;
+  }
+
+.m-signature-pad--footer
+  .button.save {
+    left: 8rem;
+    width: 7rem;
+}
+
+.m-signature-pad--footer
+  .button.bFirma {
+    right: 0;
+    width: 8rem;    
+  }
+
+
+@media screen and (max-width: 1024px) {
+  .m-signature-pad {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    min-width: 250px;
+    min-height: 140px;
+    margin: 5%;
+  }
+  #github {
+    display: none;
+  }
+}
+
+@media screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .m-signature-pad {
+    margin: 10%;
+  }
+}
+
+@media screen and (max-height: 320px) {
+  .m-signature-pad--body {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 32px;
+  }
+  .m-signature-pad--footer {
+    left: 20px;
+    right: 20px;
+    bottom: 4px;
+    height: 28px;
+  }
+  .m-signature-pad--footer
+    .description {
+      font-size: 1em;
+      margin-top: 1em;
+    }
+}
+
+
+
+.submenu {
+font-size: 1.1rem;
+line-height: 1.3rem;
+padding-left: 3rem;
+}
+
+.userDetail{
+    font-size: 2.5rem;
+    padding: 0.7rem;
+    }
+
+
+
+#splashScreen{
+z-index: 100;
+position: absolute;
+height: 100%;
+width: 100%;
+top: 0;
+background: #ffffff url(images/splash_logo.jpg) no-repeat;;    
+}
+
+#splashScreen p{
+    heigth:100%;
+}
+
+#btn-leg-NuovoIndirizzo{
+position: absolute;
+right: 1rem;
+}
+
+#btn-leg-bacheca{
+  /*  position:absolute;  ******* /
+    left:1rem;
+}
+
+#btn-ricalcolaMappa{
+    padding: 2rem;
+}
+*******/
