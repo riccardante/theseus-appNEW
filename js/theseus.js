@@ -278,7 +278,7 @@ window.onload = function () {
   $("#bFormSignIn").bind("click", showHomeTheseus);
   // LISTNER PARAMETRICO  $("#benvenuti").bind("click", VARIABILE, showLoginForm);
 
-  
+  $("#mapTheseus").css("height",window.innerHeight);
   startApp();
 	$("#benvenuti").show(1);
 
