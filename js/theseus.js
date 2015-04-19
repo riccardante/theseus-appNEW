@@ -240,7 +240,7 @@ function showTheseusMap(appo){
   
   
   if(typeof(map) == "undefined" ){  
-    map =  L.mapbox.map('mapTheseus', mapID) .setView([posizione.lat, posizione.lon], 8);
+    map =  L.mapbox.map('mapTheseus', mapID).setView([posizione.lat, posizione.lon], 8);
   }else{
     map.setView([posizione.lat, posizione.lon], 8)
   }
