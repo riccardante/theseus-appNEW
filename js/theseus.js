@@ -59,6 +59,29 @@ function startApp(){
 function getUser(username, callBack){
 	console.log("getUser");
 	$("#loginError").html("getUser");
+	
+	$.ajax({
+		method       : "POST",
+		data       : {username : 'username'},
+		crossDomain: true,
+		dataType   : 'json',
+        url: "http://theseus-sms.azurewebsites.net/getUser.php"
+	})
+	.done(function (msg) {
+			user = msg;
+			$("#loginError").html("getUser SUCCESS");
+			showDashboardCallback();
+        })
+	.fail(function (jqXHR, textStatus, errorThrown) {
+			user = textStatus;
+			$("#loginError").html("getUser FAIL" + textStatus);
+			showDashboardCallback();
+        });
+		
+	return;
+	
+	
+	/*
 	$.ajax({
 		type       : "POST",
 		data       : {username : 'username'},
@@ -81,19 +104,20 @@ function getUser(username, callBack){
 				"mobile":"+39-320-3918907",
 				"password":"",
 			}];
-			return showDashboardCallback();
+			//showDashboardCallback();
 			//getMyTheseus();
 			//return true;
         },
         success: function (msg) {
 			user = msg;
 			$("#loginError").html("getUser SUCCESS");
-			return showDashboardCallback();
+			//return showDashboardCallback();
 			//getMyTheseus();
 			//return true;
-        }
+        },
+		complete: function
     });
-
+*/
 
 	
 	/*
