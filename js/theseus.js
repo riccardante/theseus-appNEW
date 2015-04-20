@@ -81,14 +81,14 @@ function getUser(username, callBack){
 				"mobile":"+39-320-3918907",
 				"password":"",
 			}];
-			showDashboardCallback();
+			return showDashboardCallback();
 			//getMyTheseus();
 			//return true;
         },
         success: function (msg) {
 			user = msg;
 			$("#loginError").html("getUser SUCCESS");
-			showDashboardCallback();
+			return showDashboardCallback();
 			//getMyTheseus();
 			//return true;
         }
