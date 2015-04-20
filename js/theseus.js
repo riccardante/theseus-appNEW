@@ -86,12 +86,8 @@ function getUser(username, callBack){
 			//return true;
         },
         success: function (msg) {
-				  //$("#loginError").html("SUCCESS");
-			console.log("SUCCESS");
-	$("#loginError").html("getUser SUCCESS");
-			
 			user = msg;
-            console.log(msg);
+			$("#loginError").html("getUser SUCCESS");
 			callBack();
 			//getMyTheseus();
 			//return true;
@@ -254,7 +250,9 @@ function showLoginForm(){
 }
 
 function getUserCallback(){
-	console.log(user[0].name);
+	$("#loginError").html("getUser callback - " + user[0].name);
+
+	//console.log(user[0].name);
 	getMyTheseus(showDashboardCallback);
 }
 
