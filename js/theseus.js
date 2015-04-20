@@ -58,6 +58,7 @@ function startApp(){
 /********* GET DATA FROM SERVER  *************/
 function getUser(username, callBack){
 	console.log("getUser");
+	$("#loginError").html("getUser");
 	$.ajax({
 		type       : "POST",
 		data       : {username : 'username'},
@@ -67,6 +68,8 @@ function getUser(username, callBack){
         error: function (jqXHR, textStatus, errorThrown) {
 			$("#loginError").html("ERROR");
 			console.log("ERROR");
+	$("#loginError").html("getUser ERROR");
+			
             console.log(jqXHR);
 			// FAKE USER
 			user = [{
@@ -85,6 +88,8 @@ function getUser(username, callBack){
         success: function (msg) {
 				  //$("#loginError").html("SUCCESS");
 			console.log("SUCCESS");
+	$("#loginError").html("getUser SUCCESS");
+			
 			user = msg;
             console.log(msg);
 			callBack();
