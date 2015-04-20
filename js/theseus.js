@@ -1,5 +1,5 @@
 /*   VARIABILI  */
-var divs = ["login", "menuBtn", "benvenuti", "splash","menu", "homeTheseus", "detailTheseus", "mapTheseus",  "aboutApp","drawer-controller-hide","drawer-controller-show", "profilo", "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
+var divs = ["login", "menuBtn", "splash","menu", "dashboard", "detail", "map",  "aboutApp","drawer-controller-hide","drawer-controller-show", "profilo", "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
 var mapID = "riccardante.llg16mdf";
 var mapboxAccessToken = "pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw";
 
@@ -50,7 +50,7 @@ var myTheseusItems = [{"type":"standalone",
 
 /*   CONTROLLER   */
 function startApp(){
-	  hideAll(["benvenuti"]);
+	  hideAll(["splash"]);
 }
 
 
@@ -185,7 +185,7 @@ function showLoginForm(){
 	
 	//$("#login").show();
 	/*
-  document.getElementById("benvenuti").style.display = "none";  
+  document.getElementById("splash").style.display = "none";  
   document.getElementById("login").style.display = "block";  
 	showDrawerController();
 	document.getElementById("loginForm").style.display = "block";
@@ -193,7 +193,7 @@ function showLoginForm(){
 */
 }
 
-function showHomeTheseus(){
+function showDashboard(){
   hideAll([""]);
   
   $("#loginError").html("");
@@ -214,8 +214,8 @@ function showHomeTheseus(){
     appo += '</p></li>';
   }
   appo += '</ul>';
-  $("#homeTheseus p").html(appo);
-  $("#homeTheseus").show();
+  $("#dashboard p").html(appo);
+  $("#dashboard").show();
  
   for(j=0;j<myTheseusItems.length ;j++){
 	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
@@ -226,7 +226,7 @@ function showHomeTheseus(){
 
 
 function showTheseusMap(appo){
-	  hideAll(["mapTheseus"]);
+	  hideAll(["map"]);
 	  id_theseus = appo.data.msg;
 	  
 	  posizione = myTheseusItems[id_theseus]['posizione'];
@@ -240,7 +240,7 @@ function showTheseusMap(appo){
   
   
   if(typeof(map) == "undefined" ){  
-    map =  L.mapbox.map('mapTheseus', mapID).setView([posizione.lat, posizione.lon], 8);
+    map =  L.mapbox.map('map', mapID).setView([posizione.lat, posizione.lon], 8);
   }else{
     map.setView([posizione.lat, posizione.lon], 8)
   }
@@ -274,12 +274,14 @@ function showTheseusMap(appo){
 /*   ONLOAD  */
 window.onload = function () {
   // aggiungo i listner	
-  $("#benvenuti").bind("click", showLoginForm);
-  $("#bFormSignIn").bind("click", showHomeTheseus);
-  // LISTNER PARAMETRICO  $("#benvenuti").bind("click", VARIABILE, showLoginForm);
+  $("#splash").bind("click", showLoginForm);
+  $("#bFormSignIn").bind("click", showDashboard);
+  // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
-  $("#mapTheseus").css("height",window.innerHeight);
+  //altezza= window.innerHeight - $("#header").css("height");
+  //console.log(altezza); // NaN
+  $("#map").css("height",window.innerHeight);
   startApp();
-	$("#benvenuti").show(1);
+	$("#splash").show(1);
 
 };
