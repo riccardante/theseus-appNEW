@@ -28,16 +28,16 @@
 	<div data-role="panel" data-display="push" data-theme="b" id="menu">
 
 		<ul data-role="listview">
-            <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-                <li><a id="mnu-dashboard" href="#panel-responsive-page2">Dashboard</a></li>
+				<li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
+                <li><a id="mnu-dashboard" href="#panel-responsive-page2" data-rel="close">Dashboard</a></li>
 				<span id="menu-items">
 				 <!-- <li><a href="#panel-responsive-page2">Proto-001</a></li>
                 <li><a href="#panel-responsive-page2">Proto-002</a></li>
                 <li><a href="#panel-responsive-page2">Proto-003</a></li> -->
 				</span>
-                <li><a id="mnu-profile" href="#panel-responsive-page2">Profile</a></li>
-                <li><a id="mnu-about" href="#panel-responsive-page2">About</a></li>
-                <li><a id="mnu-logoff" href="#panel-responsive-page2">Log off</a></li>
+                <li><a id="mnu-profile" href="#panel-responsive-page2" data-rel="close">Profile</a></li>
+                <li><a id="mnu-about" href="#panel-responsive-page2" data-rel="close">About</a></li>
+                <li><a id="mnu-logoff" href="#panel-responsive-page2" data-rel="close">Log off</a></li>
 		</ul>
 
 	</div><!-- /panel -->
@@ -51,6 +51,7 @@
   <!--  SPLASH  -->
   <div id="splash" data-role="main" class="ui-content">
     <p><img src="./images/logo.png"/></p>
+	<p>Theseus app.<br/>Please tap on the screen to start.<br/>Use a unique Username to log in:<br/>you'll be automatically associated with:<br/>- the real PROTOTYPE, <br/>- a FAKE device.</p>
   </div>
  
   <!--  LOGIN   -->
@@ -65,7 +66,7 @@
          <fieldset>
         <legend>Password</legend>
 		-->
-        <section><p><label for="signin-password">Password:</label> <input id="signin-password" type="password" placeholder="****" required="required" ></p></section>
+<!--        <section><p><label for="signin-password">Password:</label> <input id="signin-password" type="password" placeholder="****" required="required" ></p></section>  -->
        <!-- </fieldset> -->
 
       <a id="bFormSignIn" class="ui-btn ui-corner-all" href="#">Sign in</a>
@@ -99,18 +100,7 @@
 	
     <!-- PROFILO -->
     <div id="profilo" data-role="main" class="ui-content">
-        <div class="userRef">
-          <div class="imgLeft"><img id="profileUserPhoto" src=""></img></div>
-          <div id="profileUserName" class="userDetail"></div>
-          <div id="profileUserSurname"class="userDetail"></div>
-        </div>
-        <div class="userRef">
-          <div id="profileUserEmail" class="userDetail"></div>
-          <div id="profileUserMobile"class="userDetail"></div>
-          <!-- <div id="profileUserPassword" class="userDetail"></div> -->
-        </div>
-        <!-- <a id="bProfileEdit" role="button" href="#">Modifica</a> -->
-        <a id="btn-profileLogOff" role="button" href="#">Logout</a>
+		<p></p>
     </div>
 	
 	

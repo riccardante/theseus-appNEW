@@ -56,7 +56,46 @@ function startApp(){
 
 
 /********* GET DATA FROM SERVER  *************/
-function getUser(username){
+function getUser(username, callBack){
+	console.log("getUser");
+	$.ajax({
+		type       : "POST",
+		data       : {username : 'username'},
+		crossDomain: true,
+		dataType   : 'json',
+        url: "http://theseus-sms.azurewebsites.net/getUser.php",
+        error: function (jqXHR, textStatus, errorThrown) {
+			$("#loginError").html("ERROR");
+			console.log("ERROR");
+            console.log(jqXHR);
+			// FAKE USER
+			user = [{
+				"code":"1",
+				"name":"FAKE", 
+				"surname":"Berti", 
+				"email":"riccardo.berti@gmail.com", 
+				"image":"style/images/riccardo.jpg", 
+				"mobile":"+39-320-3918907",
+				"password":"",
+			}];
+			callBack();
+			//getMyTheseus();
+			//return true;
+        },
+        success: function (msg) {
+				  //$("#loginError").html("SUCCESS");
+			console.log("SUCCESS");
+			user = msg;
+            console.log(msg);
+			callBack();
+			//getMyTheseus();
+			//return true;
+        }
+    });
+
+
+	
+	/*
   if(username=="riccardante"){
       user = [{
       "code":"1",
@@ -85,10 +124,11 @@ function getUser(username){
 	  showLoginForm();
 	  return false;
   }
+  */
 }
 
 
-function getMyTheseus(){
+function getMyTheseus(callBack){
 	// http://theseus-sms.azurewebsites.net/getItems.php
 	//myTheseusItems
 	
@@ -105,7 +145,7 @@ function getMyTheseus(){
             console.log(jqXHR);
 			// FAKE COORDS
 			myTheseusItems = [{"type":"standalone", 
-					   "code":"PROTO-001", 
+					   "code":"FAKE-001", 
 					   "color":"blue",  
 					   "photo":"style/images/theseus_blue.png",
 						"posizione" : {"lat":"51.469815" , "lon" : "-0.453877", "date":"", "address":"Via Ridolfino Venuti 25, Roma, ITALIA"}
@@ -118,6 +158,7 @@ function getMyTheseus(){
 					   "posizione" : {"lat":"41.794756" , "lon" : "12.249127", "date":"", "address":"Via Leonardo da Vinci, Roma, ITALIA"}
 					  }
 					 ];
+			callBack();
         },
         success: function (msg) {
 				  $("#loginError").html("SUCCESS");
@@ -125,8 +166,10 @@ function getMyTheseus(){
 			console.log("SUCCESS");
 			myTheseusItems=msg;
             console.log(msg);
+			callBack();
         }
     });
+	showDashboardCallback();
 	return;
 	
 	$.getJSON( "http://theseus-sms.azurewebsites.net/getItems.php", function( data ) {
@@ -192,9 +235,7 @@ function hideAll(appo){
 
 function showLoginForm(){
 	hideAll(["login"]);
-	
-	
-	getMyTheseus();
+	//getMyTheseus();
 	
 	
 	//$("#login").show();
@@ -207,19 +248,39 @@ function showLoginForm(){
 */
 }
 
+function getUserCallback(){
+	console.log(user[0].name);
+	getMyTheseus(showDashboardCallback);
+}
+
 function showDashboard(){
-  hideAll([""]);
-  
-  $("#loginError").html("");
-  
+
+  $("#loginError").html("WAITING ..");
 	
   username = $("#signin-username").val();
-  if(!getUser(username)){
-	  return;
-  }  
-
+  if(username==""){
+	  $("#loginError").html("Please insert a Username");
+		return;
+  }
   
-  var appo="<ul>";
+  
+  
+  getUser(username, getUserCallback);
+
+  /*
+  if(!getUser(username)){
+  	  $("#loginError").html("ERROR!");
+	  //return;
+  }  
+	*/
+	//getMyTheseus(showDashboardCallback);
+  
+  
+  
+}
+
+function showDashboardCallback(){
+	  var appo="<ul>";
   for(i=0;i<myTheseusItems.length ;i++){
     appo += '<li><h1 class="communicationTitle">';
     appo += myTheseusItems[i]["code"];
@@ -235,10 +296,8 @@ function showDashboard(){
   for(j=0;j<myTheseusItems.length ;j++){
 	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
   }
-  
-  
-}
 
+}
 
 function showTheseusMap(appo){
 	  hideAll(["map", "btn-menu", "menu"]);
@@ -282,7 +341,12 @@ function showTheseusMap(appo){
 
 }
 
+function showProfile(){
+  hideAll(["profilo", "btn-menu", "menu"]);
+  appo = user[0].name + " " + user[0].surname;
+  $("#profilo p").html(appo);
 
+}
 
 
 
@@ -291,6 +355,9 @@ window.onload = function () {
   // aggiungo i listner	
   $("#splash").bind("click", showLoginForm);
   $("#bFormSignIn").bind("click", showDashboard);
+  $("#mnu-dashboard").bind("click", showDashboard);
+  $("#mnu-profile").bind("click", showProfile);
+  
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
   //altezza= window.innerHeight - $("#header").css("height");
