@@ -1,5 +1,5 @@
 /*   VARIABILI  */
-var divs = ["login", "menuBtn", "splash","menu", "dashboard", "detail", "map",  "aboutApp","drawer-controller-hide","drawer-controller-show", "profilo", "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
+var divs = ["login", "btn-menu", "splash","menu", "dashboard", "detail", "map",  "aboutApp","drawer-controller-hide","drawer-controller-show", "profilo", "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
 var mapID = "riccardante.llg16mdf";
 var mapboxAccessToken = "pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw";
 

@@ -25,24 +25,26 @@
   </div> 
 -->
     <!--   MENU  -->
-	<div data-role="panel" data-display="push" data-theme="b" id="myPanel">
+	<div data-role="panel" data-display="push" data-theme="b" id="menu">
 
 		<ul data-role="listview">
             <li data-icon="delete"><a href="#" data-rel="close">Close menu</a></li>
-                <li><a href="#panel-responsive-page2">Home</a></li>
-				<li><a href="#panel-responsive-page2">Proto-001</a></li>
+                <li><a id="mnu-dashboard" href="#panel-responsive-page2">Dashboard</a></li>
+				<span id="menu-items">
+				 <!-- <li><a href="#panel-responsive-page2">Proto-001</a></li>
                 <li><a href="#panel-responsive-page2">Proto-002</a></li>
-                <li><a href="#panel-responsive-page2">Proto-003</a></li>
-                <li><a href="#panel-responsive-page2">Profile</a></li>
-                <li><a href="#panel-responsive-page2">About</a></li>
-                <li><a href="#panel-responsive-page2">Log off</a></li>
+                <li><a href="#panel-responsive-page2">Proto-003</a></li> -->
+				</span>
+                <li><a id="mnu-profile" href="#panel-responsive-page2">Profile</a></li>
+                <li><a id="mnu-about" href="#panel-responsive-page2">About</a></li>
+                <li><a id="mnu-logoff" href="#panel-responsive-page2">Log off</a></li>
 		</ul>
 
 	</div><!-- /panel -->
   
   <!--  HEADER -->
   <div data-role="header" id="header">
-  <a href="#myPanel" id="menuBtn" class="jqm-navmenu-link ui-nodisc-icon ui-alt-icon ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all" data-role="button" role="button">Menu</a>
+  <a href="#menu" id="btn-menu" class="jqm-navmenu-link ui-nodisc-icon ui-alt-icon ui-btn-left ui-btn ui-icon-bars ui-btn-icon-notext ui-corner-all" data-role="button" role="button">Menu</a>
     <h1>Theseus</h1>
   </div>
 
