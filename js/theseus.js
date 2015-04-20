@@ -1,5 +1,6 @@
 /*   VARIABILI  */
-var divs = ["login", "btn-menu", "splash","menu", "dashboard", "detail", "map",  "aboutApp","drawer-controller-hide","drawer-controller-show", "profilo", "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
+var divs = ["login", "btn-menu", "splash","menu", "dashboard", "detail", "map", "about", "profilo"];
+//,"drawer-controller-hide","drawer-controller-show",  "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
 var mapID = "riccardante.llg16mdf";
 var mapboxAccessToken = "pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw";
 
@@ -166,6 +167,7 @@ function getAddress(){
 
 /****  VIEW    ****/
 function hideAll(appo){
+	/*
   for(i=0;i<divs.length;i++){
 	  if(divs[i]==appo[0]){
 		$("#"+divs[i]).show();
@@ -173,6 +175,18 @@ function hideAll(appo){
 		  $("#"+divs[i]).hide();
 		}
   }
+  */
+  for(i=0;i<divs.length;i++){
+	  $("#"+divs[i]).hide();
+  }
+  for(i=0;i<divs.length;i++){
+	  for(j=0;j<appo.length;j++){
+		if(divs[i]==appo[j]){
+			$("#"+divs[i]).show();
+		}
+	  }
+  }
+  
 }
 
 
@@ -215,7 +229,8 @@ function showDashboard(){
   }
   appo += '</ul>';
   $("#dashboard p").html(appo);
-  $("#dashboard").show();
+  
+  hideAll(["dashboard", "btn-menu", "menu"]);
  
   for(j=0;j<myTheseusItems.length ;j++){
 	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
@@ -226,7 +241,7 @@ function showDashboard(){
 
 
 function showTheseusMap(appo){
-	  hideAll(["map"]);
+	  hideAll(["map", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
 	  
 	  posizione = myTheseusItems[id_theseus]['posizione'];
