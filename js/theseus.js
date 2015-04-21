@@ -307,9 +307,9 @@ function showDashboard(){
 }
 
 function showDashboardCallback(){
-				$("#loginError").html("showDashboardCallback");
+  hideAll(["dashboard", "btn-menu", "menu"]);
 
-	  var appo="<ul>";
+  appo="<ul>";
   for(i=0;i<myTheseusItems.length ;i++){
     appo += '<li><h1 class="communicationTitle">';
     appo += myTheseusItems[i]["code"];
@@ -320,7 +320,6 @@ function showDashboardCallback(){
   appo += '</ul>';
   $("#dashboard p").html(appo);
   
-  hideAll(["dashboard", "btn-menu", "menu"]);
  
   for(j=0;j<myTheseusItems.length ;j++){
 	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
