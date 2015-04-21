@@ -5,6 +5,7 @@ var mapID = "riccardante.llg16mdf";
 var mapboxAccessToken = "pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw";
 
 var username = "";
+var user = "";
 var data;
 var myTheseusItems;
 var map;
@@ -51,8 +52,6 @@ var myTheseusItems = [{"type":"standalone",
 
 
 
-
-
 /****  VIEW    ****/
 function hideAll(appo){
   for(i=0;i<divs.length;i++){
@@ -68,7 +67,6 @@ function hideAll(appo){
 }
 
 
-
 function showLoginForm(){
 	hideAll(["login"]);
 }
@@ -80,68 +78,57 @@ function showDashboard(){
 	  $("#loginError").html("Please insert a Username");
 		return;
   }
-  
-  getUserData(username, showDashboardCallback);
-
+  if(user==""){
+	getUserData(username, showDashboardCallback);
+  }else{
+	showDashboardCallback();  
+  }
 }
+
 
 function showDashboardCallback(){
-	console.log(data);
-	user = data['user'];
-	console.log(user);
-	myTheseusItems = data['item'];
+  user = data['user'];
+  myTheseusItems = data['item'];
+  hideAll(["dashboard", "btn-menu", "menu"]);
+
+  appo="<ul>";
+  for(i=0;i<myTheseusItems.length ;i++){
+    appo += '<li><h1 id="btn-theseus-'+i+'">';
+    appo += myTheseusItems[i]["code"];
+    appo += '</h1>';
+    //appo += '<p><div id="btn-theseus-'+i+'"><img src="'+myTheseusItems[i]['photo']+'" /></div></p>';
+    appo += '</li>';
+  }
+  appo += '</ul>';
+  $("#dashboard p").html(appo);
+ 
+  for(j=0;j<myTheseusItems.length ;j++){
+	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusDetail);
+  }
+}
+
+
+function showTheseusDetail(appo){
+	  hideAll(["detail", "btn-menu", "menu"]);
+	  id_theseus = appo.data.msg;
+	  
+    appo="<ul>";
+	appo += '<li><h1>';
+    appo += myTheseusItems[id_theseus]["code"];
+    appo += '</h1>';
+    appo += '</li>';
+
+	appo += '<li>' + myTheseusItems[id_theseus]["posizione"]["address"] + '</li>';
+    appo += "</ul>";
+    appo += "<p><span id='btn-map'>Show map</span></p>";
+
+	$("#detail p").html(appo);
 	
-  hideAll(["dashboard", "btn-menu", "menu"]);
-
-  appo="<ul>";
-  for(i=0;i<myTheseusItems.length ;i++){
-    appo += '<li><h1 class="communicationTitle">';
-    appo += myTheseusItems[i]["code"];
-    appo += '</h1><p>';
-    appo += '<div id="btn-theseus-'+i+'"><img src="'+myTheseusItems[i]['photo']+'" /></div>';
-    appo += '</p></li>';
-  }
-  appo += '</ul>';
-  $("#dashboard p").html(appo);
-  
- 
-  for(j=0;j<myTheseusItems.length ;j++){
-	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
-  }
-
-
+	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
+	
+	
 }
 
-/*
-function getUserCallback(){
-	$("#loginError").html("getUser callback - " + user[0].name);
-
-	//console.log(user[0].name);
-	getMyTheseus(showDashboardCallback);
-}
-
-
-function showDashboardCallback_OLD(){
-  hideAll(["dashboard", "btn-menu", "menu"]);
-
-  appo="<ul>";
-  for(i=0;i<myTheseusItems.length ;i++){
-    appo += '<li><h1 class="communicationTitle">';
-    appo += myTheseusItems[i]["code"];
-    appo += '</h1><p>';
-    appo += '<div id="btn-theseus-'+i+'"><img src="'+myTheseusItems[i]['photo']+'" /></div>';
-    appo += '</p></li>';
-  }
-  appo += '</ul>';
-  $("#dashboard p").html(appo);
-  
- 
-  for(j=0;j<myTheseusItems.length ;j++){
-	$("#btn-theseus-"+j).bind("click", {msg:j}, showTheseusMap);
-  }
-
-}
-*/
 
 function showTheseusMap(appo){
 	  hideAll(["map", "btn-menu", "menu"]);
@@ -187,10 +174,27 @@ function showTheseusMap(appo){
 
 function showProfile(){
   hideAll(["profilo", "btn-menu", "menu"]);
-  appo = user[0].name + " " + user[0].surname;
+  appo = user['name'] + " " + user['surname'];
   $("#profilo p").html(appo);
 
 }
+
+
+function showAbout(){
+  hideAll(["about", "btn-menu", "menu"]);
+	
+}
+
+
+function logOff(){
+	data="";
+	user="";
+	myTheseusItems="";
+	showLoginForm();
+}
+
+
+
 
 
 
@@ -225,6 +229,7 @@ function getUserData(username, callback){
 	
 }
 
+/*
 function getUser(username, callBack){
 	console.log("getUser");
 	$("#loginError").html("getUser");
@@ -250,75 +255,7 @@ function getUser(username, callBack){
 	return;
 	
 	
-	/*
-	$.ajax({
-		type       : "POST",
-		data       : {username : 'username'},
-		crossDomain: true,
-		dataType   : 'json',
-        url: "http://theseus-sms.azurewebsites.net/getUser.php",
-        error: function (jqXHR, textStatus, errorThrown) {
-			$("#loginError").html("ERROR");
-			console.log("ERROR");
-	$("#loginError").html("getUser ERROR");
-			
-            console.log(jqXHR);
-			// FAKE USER
-			user = [{
-				"code":"1",
-				"name":"FAKE", 
-				"surname":"Berti", 
-				"email":"riccardo.berti@gmail.com", 
-				"image":"style/images/riccardo.jpg", 
-				"mobile":"+39-320-3918907",
-				"password":"",
-			}];
-			//showDashboardCallback();
-			//getMyTheseus();
-			//return true;
-        },
-        success: function (msg) {
-			user = msg;
-			$("#loginError").html("getUser SUCCESS");
-			//return showDashboardCallback();
-			//getMyTheseus();
-			//return true;
-        },
-		complete: function
-    });
-*/
 
-	
-	/*
-  if(username=="riccardante"){
-      user = [{
-      "code":"1",
-      "name":"Riccardo", 
-      "surname":"Berti", 
-      "email":"riccardo.berti@gmail.com", 
-      "image":"style/images/riccardo.jpg", 
-      "mobile":"+39-320-3918907",
-      "password":"",
-	}];
-	getMyTheseus();
-	return true;
-  }else if(username=="giuseppe"){
-      user = [{
-      "code":"2",
-      "name":"Giuseppe", 
-      "surname":"Reale", 
-      "email":"giusepperealeg@gmail.com", 
-      "image":"style/images/giuseppe.jpg", 
-      "mobile":"+39-328-0833271",
-      "password":"",
-	}];
-	return true;
-  }else{
-	  $("#loginError").html("Wrong login");
-	  showLoginForm();
-	  return false;
-  }
-  */
 }
 
 
@@ -369,28 +306,10 @@ function getMyTheseus(callBack){
 	$.getJSON( "http://theseus-sms.azurewebsites.net/getItems.php", function( data ) {
 		alert(data);
 		//myTheseusItems=data;
-		/*
-	  var items = [];
-	  $.each( data, function( key, val ) {
-		items.push( "<li id='" + key + "'>" + val + "</li>" );
-	  });
-	 
-	  $( "<ul/>", {
-		"class": "my-new-list",
-		html: items.join( "" )
-	  }).appendTo( "body" );
-	  */
-	});
-	/*
-	$.ajax({
-		url: "http://theseus-sms.azurewebsites.net/getItems.php",
-		context: document.body
-	}).done(function() {
-		$( this ).addClass( "done" );
-	});
-	*/
-}
 
+	});
+}
+*/
 
 function getAddress(){
   url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/"+posizione.lon+","+posizione.lat+".json?access_token="+mapboxAccessToken;
@@ -414,6 +333,9 @@ window.onload = function () {
   $("#bFormSignIn").bind("click", showDashboard);
   $("#mnu-dashboard").bind("click", showDashboard);
   $("#mnu-profile").bind("click", showProfile);
+  $("#mnu-about").bind("click", showAbout);
+  $("#mnu-logoff").bind("click", logOff);
+  
   
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
