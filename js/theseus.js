@@ -307,6 +307,8 @@ function showDashboard(){
 }
 
 function showDashboardCallback(){
+				$("#loginError").html("showDashboardCallback");
+
 	  var appo="<ul>";
   for(i=0;i<myTheseusItems.length ;i++){
     appo += '<li><h1 class="communicationTitle">';
