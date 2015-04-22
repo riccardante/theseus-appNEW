@@ -26,6 +26,13 @@ var legend;
 var myPosizione = {"lat":"41.800278" , "lon" : "12.238889", "address":"impossibile ottenere la posizione"};
 
 /*
+user       "code" => $id_customer,
+      "name" => $name, 
+      "surname" => $surname, 
+      "email" => $email, 
+	  "distance_unit" => $distance_unit,
+
+
 var myTheseusItems = [{"type":"standalone", 
 					   "code":"PROTO-001", 
 					   "color":"blue",  
@@ -175,6 +182,10 @@ function showTheseusMap(appo){
 function showProfile(){
   hideAll(["profilo", "btn-menu", "menu"]);
   appo = user['name'] + " " + user['surname'];
+  appo += "<br/>" + user['email'];
+  appo += "<br/>unit: " + user['distance_unit'];
+  
+  appo += "<br/>EDIT ";
   $("#profilo p").html(appo);
 
 }
@@ -221,7 +232,7 @@ function getUserData(username, callback){
 			callback();
         })
 	.fail(function (jqXHR, textStatus, errorThrown) {
-			data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","image":"style\/images\/riccardo.jpg","mobile":"+39-320-3918907","password":""},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
+			data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","distance_unit":"KM"},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
 			callback();
         });
 		
