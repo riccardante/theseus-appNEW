@@ -211,7 +211,7 @@ function startApp(){
 function getUserData(username, callback){
 	$.ajax({
 		method       : "POST",
-		data       : {username : 'username'},
+		data       : {username : username},
 		crossDomain: true,
 		dataType   : 'json',
         url: "http://theseus-sms.azurewebsites.net/getUserData.php"
