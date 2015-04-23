@@ -31,6 +31,7 @@
     <icon src="images/icon/ios/icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
 
     <!-- Define app splash screen for each platform. -->
+	<gap:splash src="/images/splash/splash.png" /> 
     <gap:splash src="res/screen/android/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
     <gap:splash src="res/screen/android/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
     <gap:splash src="res/screen/android/screen-hdpi-portrait.png"       gap:platform="android" gap:qualifier="port-hdpi" />
