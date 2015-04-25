@@ -98,15 +98,12 @@ function showDashboardCallback(){
   myTheseusItems = data['item'];
   hideAll(["dashboard", "btn-menu", "menu"]);
 
-  appo="<ul>";
+  appo="";
   for(i=0;i<myTheseusItems.length ;i++){
-    appo += '<li><h1 id="btn-theseus-'+i+'">';
-    appo += myTheseusItems[i]["code"];
-    appo += '</h1>';
-    //appo += '<p><div id="btn-theseus-'+i+'"><img src="'+myTheseusItems[i]['photo']+'" /></div></p>';
-    appo += '</li>';
+	  appo += " <div class='ui-btn ui-input-btn ui-corner-all ui-shadow ui-icon-carat-r ui-btn-icon-right'>";
+	  appo += " <input type='button' id='btn-theseus-"+i+"' class='ui-btn ui-corner-all' data-inline='true' data-icon='carat-r' data-iconpos='right' ";
+	  appo += " value='"+ myTheseusItems[i]["code"]+"'>"+ myTheseusItems[i]["code"]+"</div>";
   }
-  appo += '</ul>';
   $("#dashboard p").html(appo);
  
   for(j=0;j<myTheseusItems.length ;j++){
@@ -119,19 +116,29 @@ function showTheseusDetail(appo){
 	  hideAll(["detail", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
 	  
-    appo="<ul>";
-	appo += '<li><h1>';
+	appo = '<h1>';
     appo += myTheseusItems[id_theseus]["code"];
     appo += '</h1>';
-    appo += '</li>';
+	appo += '<p>Position:<br/>' + myTheseusItems[id_theseus]["posizione"]["address"];
 
-	appo += '<li>' + myTheseusItems[id_theseus]["posizione"]["address"] + '</li>';
-    appo += "</ul>";
-    appo += "<p><span id='btn-map'>Show map</span></p>";
+	appo += '<br/>Date:<br/>XXXX'  	;
 
+	appo += '<br/>Distance:<br/>XXXX'  	;
+
+
+	appo += '<button id="btn-map" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show map</button>';
+
+	appo += '<button id="btn-history" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show history</button>';
+	  
+	appo += '<button id="btn-getPosition" class="ui-btn ui-icon-refresh ui-btn-icon-right ui-shadow ui-corner-all">Update position</button>';
+	  
+	appo += '</p>';
+	
 	$("#detail p").html(appo);
 	
 	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
+	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusMap);
+	$("#btn-getPosition").bind("click", {msg:id_theseus}, showTheseusMap);
 	
 	
 }
@@ -181,15 +188,43 @@ function showTheseusMap(appo){
 
 function showProfile(){
   hideAll(["profilo", "btn-menu", "menu"]);
-  appo = user['name'] + " " + user['surname'];
+  appo = username;
+  appo += "<br/>" +user['name'] + " " + user['surname'];
   appo += "<br/>" + user['email'];
   appo += "<br/>unit: " + user['distance_unit'];
   
-  appo += "<br/>EDIT ";
+  appo += "<br/><div class='ui-btn ui-input-btn ui-corner-all ui-shadow ui-icon-carat-r ui-btn-icon-right'>EDIT<input type='button' id='btn-editUser' class='ui-btn ui-corner-all' data-inline='true' data-icon='carat-r' data-iconpos='right' value='Edit'></div>";
   $("#profilo p").html(appo);
-
+  $("#btn-editUser").bind("click", editUser);
 }
 
+
+function editUser(){
+  hideAll(["profilo", "btn-menu", "menu"]);
+  appo = "<form>";
+  appo += "<input name='username' value='"+username+"' readonly>";
+  appo += "<br/>" + "<input name='name' value='"+user['name']+"' >";  
+  appo += "<br/>" + "<input name='surname' value='"+user['surname']+"' >";  
+  appo += "<br/>" + "<input name='email' value='"+user['email']+"' >";  
+  appo += "<br/><fieldset data-theme='a' data-role='controlgroup' data-type='horizontal' class='ui-controlgroup ui-controlgroup-horizontal ui-corner-all'><legend>Distance Unit:</legend>";
+  appo += "<div class='ui-controlgroup-controls'>";
+  appo += "<div class='ui-radio'><label for='radio-choice-h-2a' class='ui-btn ui-corner-all ui-btn-inherit ui-radio-on ui-btn-active ui-first-child'>Km</label>";
+  appo += "<input type='radio' name='radio-choice-h-2' id='radio-choice-h-2a' value='KM' checked='checked'></div>";
+  appo += "<div class='ui-radio'><label for='radio-choice-h-2b' class='ui-btn ui-corner-all ui-btn-inherit ui-radio-off ui-last-child'>Miles</label>";
+  appo += "<input type='radio' name='radio-choice-h-2' id='radio-choice-h-2a' value='MI'></div>";
+  appo += "</div></fieldset>";
+  appo += "<br/>unit: " + user['distance_unit'];
+  
+  appo += "<br/><a href='#' id='btn-submitUser' class='ui-btn ui-corner-all'>SUBMIT</a>";
+  appo += "</form>";
+  $("#profilo p").html(appo);
+  $("#btn-submitUser").bind("click", submitUser);
+	
+}
+
+function submitUser(){
+	
+}
 
 function showAbout(){
   hideAll(["about", "btn-menu", "menu"]);
@@ -332,7 +367,19 @@ function getAddress(){
 }
 
 
-
+function _orientationHandler(){
+	alert(window.orientation);
+	if(event.orientation){
+		  if(event.orientation == 'portrait'){
+					  //do something
+					  alert("port");
+		  }
+		  else if(event.orientation == 'landscape') {
+						//do something
+						alert("land");
+		  }
+	}
+}
 
 
 
@@ -346,6 +393,8 @@ window.onload = function () {
   $("#mnu-profile").bind("click", showProfile);
   $("#mnu-about").bind("click", showAbout);
   $("#mnu-logoff").bind("click", logOff);
+  //$(window).bind('resize', _orientationHandler);
+  $(window).bind('orientationchange', _orientationHandler);
   
   
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
