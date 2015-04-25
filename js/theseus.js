@@ -369,8 +369,8 @@ function getAddress(){
 
 function _orientationHandler(){
     $("#map").css("height",window.innerHeight);
-
-	alert(window.orientation + event.orientation);
+/*
+	//alert(window.orientation + event.orientation);
 	if(event.orientation){
 		  if(event.orientation == 'portrait'){
 					  //do something
@@ -381,6 +381,7 @@ function _orientationHandler(){
 						alert("land");
 		  }
 	}
+*/	
 }
 
 
@@ -388,6 +389,8 @@ function _orientationHandler(){
 
 /*   ONLOAD  */
 window.onload = function () {
+  $("#map").css("height",window.innerHeight);
+
   // aggiungo i listner	
   $("#splash").bind("click", showLoginForm);
   $("#bFormSignIn").bind("click", showDashboard);
@@ -402,7 +405,6 @@ window.onload = function () {
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
   //console.log(altezza); // NaN
-  $("#map").css("height",window.innerHeight);
 
   startApp();
 };
