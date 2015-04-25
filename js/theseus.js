@@ -370,6 +370,7 @@ function getAddress(){
 function _orientationHandler(){
 	//alert(window.innerHeight);
     $("#map").css("height",window.innerHeight);
+	if(typeof(map) != "undefined" ){   setTimeout(map.invalidateSize(),800); }
 /*
 	//alert(window.orientation + event.orientation);
 	if(event.orientation){
