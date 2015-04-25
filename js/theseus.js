@@ -368,7 +368,9 @@ function getAddress(){
 
 
 function _orientationHandler(){
-	alert(window.orientation);
+    $("#map").css("height",window.innerHeight);
+
+	alert(window.orientation + event.orientation);
 	if(event.orientation){
 		  if(event.orientation == 'portrait'){
 					  //do something
