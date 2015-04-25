@@ -191,7 +191,7 @@ function showProfile(){
   appo = username;
   appo += "<br/>" +user['name'] + " " + user['surname'];
   appo += "<br/>" + user['email'];
-  appo += "<br/>unit: " + user['distance_unit'];
+  //appo += "<br/>unit: " + user['distance_unit'];
   
   appo += "<br/><div class='ui-btn ui-input-btn ui-corner-all ui-shadow ui-icon-carat-r ui-btn-icon-right'>EDIT<input type='button' id='btn-editUser' class='ui-btn ui-corner-all' data-inline='true' data-icon='carat-r' data-iconpos='right' value='Edit'></div>";
   $("#profilo p").html(appo);
@@ -201,19 +201,27 @@ function showProfile(){
 
 function editUser(){
   hideAll(["profilo", "btn-menu", "menu"]);
-  appo = "<form>";
-  appo += "<input name='username' value='"+username+"' readonly>";
-  appo += "<br/>" + "<input name='name' value='"+user['name']+"' >";  
-  appo += "<br/>" + "<input name='surname' value='"+user['surname']+"' >";  
-  appo += "<br/>" + "<input name='email' value='"+user['email']+"' >";  
+  appo = "";
+  appo += "<div id='editError'></div>";
+  appo += "<form><input type='hidden' name='code' value='"+user['code']+"'>";
+  appo += "Username:<br/> <b>"+username+"</b> ";
+  appo += "<br/>" + "Name: <br/><input id='edt-user-name' name='name' value='"+user['name']+"' >";  
+  appo += "<br/>" + "Surname: <br/><input id='edt-user-surname' name='surname' value='"+user['surname']+"' >";  
+  appo += "<br/>" + "Email: <br/><input id='edt-user-email' name='email' value='"+user['email']+"' >";  
+//  appo += "<br/>" + "Distance Unit: <br/>Km";  
+  
+  /*
   appo += "<br/><fieldset data-theme='a' data-role='controlgroup' data-type='horizontal' class='ui-controlgroup ui-controlgroup-horizontal ui-corner-all'><legend>Distance Unit:</legend>";
   appo += "<div class='ui-controlgroup-controls'>";
   appo += "<div class='ui-radio'><label for='radio-choice-h-2a' class='ui-btn ui-corner-all ui-btn-inherit ui-radio-on ui-btn-active ui-first-child'>Km</label>";
   appo += "<input type='radio' name='radio-choice-h-2' id='radio-choice-h-2a' value='KM' checked='checked'></div>";
   appo += "<div class='ui-radio'><label for='radio-choice-h-2b' class='ui-btn ui-corner-all ui-btn-inherit ui-radio-off ui-last-child'>Miles</label>";
-  appo += "<input type='radio' name='radio-choice-h-2' id='radio-choice-h-2a' value='MI'></div>";
+  appo += "<input type='radio' name='radio-choice-h-2' id='radio-choice-h-2b' value='MI' disabled='disabled'></div>";
   appo += "</div></fieldset>";
-  appo += "<br/>unit: " + user['distance_unit'];
+  
+  */
+  
+  //appo += "<br/>unit: " + user['distance_unit'];
   
   appo += "<br/><a href='#' id='btn-submitUser' class='ui-btn ui-corner-all'>SUBMIT</a>";
   appo += "</form>";
@@ -223,6 +231,22 @@ function editUser(){
 }
 
 function submitUser(){
+	$.ajax({
+		method       : "POST",
+		data       : {username : username, code:user['code'], name: $("#edt-user-name").val(), surname:$("#edt-user-surname").val(), email:$("#edt-user-email").val() },
+		crossDomain: true,
+		dataType   : 'json',
+        url: "http://theseus-sms.azurewebsites.net/updateUserData.php"
+	})
+	.done(function (msg) {
+			getUserData(username, showDashboardCallback);
+        })
+	.fail(function (jqXHR, textStatus, errorThrown) {
+			$("#editError").html("An error has occurred in updating data.");
+			return;
+        });
+		
+	return;
 	
 }
 
