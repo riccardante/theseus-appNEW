@@ -368,6 +368,7 @@ function getAddress(){
 
 
 function _orientationHandler(){
+	//alert(window.innerHeight);
     $("#map").css("height",window.innerHeight);
 /*
 	//alert(window.orientation + event.orientation);
@@ -390,6 +391,7 @@ function _orientationHandler(){
 /*   ONLOAD  */
 window.onload = function () {
   $("#map").css("height",window.innerHeight);
+  //alert(window.innerHeight);
 
   // aggiungo i listner	
   $("#splash").bind("click", showLoginForm);
@@ -398,8 +400,8 @@ window.onload = function () {
   $("#mnu-profile").bind("click", showProfile);
   $("#mnu-about").bind("click", showAbout);
   $("#mnu-logoff").bind("click", logOff);
-  //$(window).bind('resize', _orientationHandler);
   $(window).bind('orientationchange', _orientationHandler);
+  $(document).bind('orientationchange', _orientationHandler);
   
   
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
