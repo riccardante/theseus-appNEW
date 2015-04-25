@@ -17,7 +17,7 @@ var destCircle;
 var m1;
 var m2;
 var legend;
-
+var activeTheseus;
 
 // reverse geocoding: http://api.tiles.mapbox.com/v4/geocode/mapbox.places/{lon},{lat}.json?access_token=<your access token>
 // http://api.tiles.mapbox.com/v4/geocode/mapbox.places/12.238889,41.800278.json?access_token=pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw
@@ -115,15 +115,17 @@ function showDashboardCallback(){
 function showTheseusDetail(appo){
 	  hideAll(["detail", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
+	  //activeTheseus = id_theseus;
+	  
 	  
 	appo = '<h1>';
     appo += myTheseusItems[id_theseus]["code"];
     appo += '</h1>';
 	appo += '<p>Position:<br/>' + myTheseusItems[id_theseus]["posizione"]["address"];
 
-	appo += '<br/>Date:<br/>XXXX'  	;
+	appo += '<br/>Date:<br/>' + myTheseusItems[id_theseus]["posizione"]["date"];
 
-	appo += '<br/>Distance:<br/>XXXX'  	;
+//	appo += '<br/>Distance:<br/>XXXX'  	;
 
 
 	appo += '<button id="btn-map" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show map</button>';
@@ -137,10 +139,39 @@ function showTheseusDetail(appo){
 	$("#detail p").html(appo);
 	
 	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
-	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusMap);
-	$("#btn-getPosition").bind("click", {msg:id_theseus}, showTheseusMap);
+	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusHistory);
+	$("#btn-getPosition").bind("click", {msg:id_theseus}, getPosition);
 	
 	
+}
+
+function getPosition(appo){
+	id_theseus = appo.data.msg;
+	$.ajax({
+		method       : "POST",
+		data       : {id : id_theseus},
+		crossDomain: true,
+		dataType   : 'json',
+        url: "http://theseus-sms.azurewebsites.net/updatePosition.php"
+	})
+	.done(function (msg) {
+			myTheseusItems[id_theseus]['posizione'] = msg;
+			showTheseusMap(id_theseus);
+        })
+	.fail(function (jqXHR, textStatus, errorThrown) {
+			//data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","distance_unit":"KM"},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
+			//callback();
+        });
+		
+	return;
+	
+}
+
+
+
+function showTheseusHistory(appo){
+	  hideAll(["map", "btn-menu", "menu"]);
+	  id_theseus = appo.data.msg;
 }
 
 
@@ -160,11 +191,14 @@ function showTheseusMap(appo){
   
   if(typeof(map) == "undefined" ){  
     map =  L.mapbox.map('map', mapID).setView([posizione.lat, posizione.lon], 8);
+	//map.addControl(L.mapbox.legendControl());
+	
+	map.legendControl.addLegend(document.getElementById('legend').innerHTML);
   }else{
     map.setView([posizione.lat, posizione.lon], 8)
   }
-  if(myp1!=undefined){map.removeLayer(myp1);}
-  myp1=L.marker([myPosizione.lat, myPosizione.lon],{icon:L.mapbox.marker.icon({'marker-size':'medium','marker-symbol':'star','marker-color':'#ff0000'})}).addTo(map);
+//  if(myp1!=undefined){map.removeLayer(myp1);}
+//  myp1=L.marker([myPosizione.lat, myPosizione.lon],{icon:L.mapbox.marker.icon({'marker-size':'medium','marker-symbol':'star','marker-color':'#ff0000'})}).addTo(map);
   if(pCircle!=undefined){map.removeLayer(pCircle);}  
   pCircle = L.circle([posizione.lat, posizione.lon], 3000).addTo(map);
   if(p1!=undefined){map.removeLayer(p1);}
@@ -175,16 +209,23 @@ function showTheseusMap(appo){
       'marker-color': '#1087bf'
     })
   }).addTo(map);
+
+  $("#btn-back").bind("click", {msg:id_theseus}, showTheseusDetail);
+
   
-  if(m1!=undefined){map.removeLayer(m1);}
-  if(m2!=undefined){map.removeLayer(m2);}
-  if(dest!=undefined){map.removeLayer(dest);}
-  if(destCircle!=undefined){map.removeLayer(destCircle);}
+//  if(m1!=undefined){map.removeLayer(m1);}
+//  if(m2!=undefined){map.removeLayer(m2);}
+//  if(dest!=undefined){map.removeLayer(dest);}
+//  if(destCircle!=undefined){map.removeLayer(destCircle);}
   
   //document.getElementById("legend-content").style.display = "none";
   //document.getElementById("legend-position").style.display = "none";  //////////////// RIAGGIUNGI !!!!!!
 
 }
+
+//function back
+// 	$("#btn-back").bind("click", {msg:j}, showTheseusDetail);
+
 
 function showProfile(){
   hideAll(["profilo", "btn-menu", "menu"]);
@@ -412,6 +453,44 @@ function _orientationHandler(){
 
 
 
+/***   POSIZIONE  ***/
+function getPosition(){
+  navigator.geolocation.getCurrentPosition(getPositionOnSuccess, getPositionOnError);
+}
+
+function getDistance(p1,p2){
+	// https://www.mapbox.com/mapbox.js/example/v1.0.0/marker-distances/
+	var fc = p1.getLatLng();
+	var c = p2.getLatLng();
+	distance = "";
+	distanceM = (fc.distanceTo(c)).toFixed(0); 
+	distanceKM = ((fc.distanceTo(c))/1000).toFixed(0);
+	if(distanceKM=="0"){
+		distance = distanceM + " m";
+	}else{
+		distance = distanceKM + " Km";
+	}
+	return distance;
+}
+
+var getPositionOnSuccess = function (position) {
+   console.log('Latitude: ' + position.coords.latitude + '\n' +     'Longitude: ' + position.coords.longitude + '\n');
+   myPosizione.lat = position.coords.latitude ;
+   myPosizione.lon = position.coords.longitude ;
+   //ridisegnaMappa();
+   //getAddress();
+};
+
+function getPositionOnError(error) {
+  //document.getElementById("leg-posizione").innerHTML = "impossibile determinare la posizione";
+    console.log('Error getting GPS Data');
+}
+
+
+
+
+
+
 
 /*   ONLOAD  */
 window.onload = function () {
@@ -432,6 +511,6 @@ window.onload = function () {
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
   //console.log(altezza); // NaN
-
+  getPosition();
   startApp();
 };
