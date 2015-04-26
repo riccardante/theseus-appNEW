@@ -124,6 +124,7 @@ function showTheseusDetail(appo){
 	  hideAll(["detail", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
 	  //activeTheseus = id_theseus;
+
 	  
 	  
 	appo = '<h1>';
@@ -145,6 +146,11 @@ function showTheseusDetail(appo){
 	appo += '</p>';
 	
 	$("#detail p").html(appo);
+
+	  document.getElementById("span-posizione").innerHTML = "...";
+	  posizione = myTheseusItems[id_theseus]['posizione'];
+	  getAddress(posizione);
+
 	
 	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
 	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusHistory);
@@ -195,8 +201,6 @@ function showTheseusMap(appo){
 	  hideAll(["map", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
 	  
-	  posizione = myTheseusItems[id_theseus]['posizione'];
-	  getAddress(posizione);
 
   //document.getElementById("legend-position").style.display = "block";
   //document.getElementById("legend-actionbar").style.display = "block";
