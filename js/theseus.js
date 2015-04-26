@@ -1,8 +1,12 @@
 /*   VARIABILI  */
 var divs = ["login", "btn-menu", "splash","menu", "dashboard", "detail", "map", "about", "profilo"];
 //,"drawer-controller-hide","drawer-controller-show",  "legend-content","loginForm","legend-position","nuovoIndirizzoForm","nuovoOrdineForm","splashScreen","bacheca"];
+
 var mapID = "riccardante.llg16mdf";
 var mapboxAccessToken = "pk.eyJ1IjoicmljY2FyZGFudGUiLCJhIjoiLUlVekRRYyJ9.ISPJ0xA1XnwnXtE9ibSbyw";
+
+var appVersion = "0.9.0";
+var apiVersion = "";
 
 var username = "";
 var user = "";
@@ -94,6 +98,10 @@ function showDashboard(){
 
 
 function showDashboardCallback(){
+  apiVersion = data['version'];
+  if(appVersion!=apiVersion){
+	  $("#versionMessage").show();
+  }
   user = data['user'];
   myTheseusItems = data['item'];
   hideAll(["dashboard", "btn-menu", "menu"]);
@@ -121,7 +129,7 @@ function showTheseusDetail(appo){
 	appo = '<h1>';
     appo += myTheseusItems[id_theseus]["code"];
     appo += '</h1>';
-	appo += '<p>Position:<br/>' + myTheseusItems[id_theseus]["posizione"]["address"];
+	appo += '<p>Position:<br/><span id="span-posizione"></span >'; ////// + myTheseusItems[id_theseus]["posizione"]["address"];
 
 	appo += '<br/>Date:<br/>' + myTheseusItems[id_theseus]["posizione"]["date"];
 
@@ -157,17 +165,25 @@ function getPosition(appo){
 	.done(function (msg) {
 			myTheseusItems[id_theseus]['posizione'] = msg;
 			showTheseusMap(id_theseus);
+			appo = setTimeout(getPositionDelayedCall,2000); 
+
         })
 	.fail(function (jqXHR, textStatus, errorThrown) {
 			//data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","distance_unit":"KM"},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
 			//callback();
+			$("#editError").html("An error has occurred in updating data.")	;
+			appo = setTimeout(getPositionDelayedCall,2000); 
+			return;
+			
         });
 		
 	return;
 	
 }
 
-
+function getPositionDelayedCall(){
+	showTheseusMap(id_theseus);
+}
 
 function showTheseusHistory(appo){
 	  hideAll(["map", "btn-menu", "menu"]);
@@ -283,12 +299,17 @@ function submitUser(){
 			getUserData(username, showDashboardCallback);
         })
 	.fail(function (jqXHR, textStatus, errorThrown) {
-			$("#editError").html("An error has occurred in updating data.");
+			$("#editError").html("An error has occurred in updating data.")	;
+			appo = setTimeout(submitUserDelayedCall,2000); 
 			return;
         });
 		
 	return;
 	
+}
+
+function submitUserDelayedCall(){
+	getUserData(username, showDashboardCallback);
 }
 
 function showAbout(){
@@ -426,8 +447,7 @@ function getAddress(){
   url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/"+posizione.lon+","+posizione.lat+".json?access_token="+mapboxAccessToken;
   $.getJSON( url, function( data ) {
     posizione.address=data.features[0].place_name;
-    console.log(posizione.address);
-    //document.getElementById("leg-posizione").innerHTML = posizione.address;
+    document.getElementById("span-posizione").innerHTML = posizione.address;
   });
 }
 
