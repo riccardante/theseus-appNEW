@@ -126,8 +126,9 @@ function showTheseusDetail(appo){
 	  //activeTheseus = id_theseus;
 
 	  
-	  
-	appo = '<h1>';
+	appo = "";
+	appo = "<div id='editPositionError' style='display:none;'></div>";
+	appo += '<h1>';
     appo += myTheseusItems[id_theseus]["code"];
     appo += '</h1>';
 	appo += '<p>Position:<br/><span id="span-posizione"></span >'; ////// + myTheseusItems[id_theseus]["posizione"]["address"];
@@ -177,8 +178,9 @@ function getPosition(appo){
 	.fail(function (jqXHR, textStatus, errorThrown) {
 			//data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","distance_unit":"KM"},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
 			//callback();
-			$("#editError").html("An error has occurred in updating data.")	;
-			appo = setTimeout(getPositionDelayedCall,2000); 
+			$("#editPositionError").html("An error has occurred in updating data." + textStatus)	;
+			$("#editPositionError").show();
+			//appo = setTimeout(getPositionDelayedCall,2000); 
 			return;
 			
         });
