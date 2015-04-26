@@ -141,9 +141,7 @@ function showTheseusDetail(appo){
 	appo += '<button id="btn-map" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show map</button>';
 
 	appo += '<button id="btn-history" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show history</button>';
-	  
 	appo += '<button id="btn-getPosition" class="ui-btn ui-icon-refresh ui-btn-icon-right ui-shadow ui-corner-all">Update position</button>';
-	  
 	appo += '</p>';
 	
 	$("#detail p").html(appo);
@@ -155,7 +153,8 @@ function showTheseusDetail(appo){
 	
 	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
 	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusHistory);
-	$("#btn-getPosition").bind("click", {msg:id_theseus}, getPosition);
+	
+	$("#btn-getPosition").bind("click", {msg:myTheseusItems[id_theseus]["code"]}, getPosition);
 	
 	
 }
@@ -176,10 +175,7 @@ function getPosition(appo){
 
         })
 	.fail(function (jqXHR, textStatus, errorThrown) {
-			//data = {"user":{"code":"1","name":"Riccardo","surname":"Berti","email":"riccardo.berti@gmail.com","distance_unit":"KM"},"item":[{"type":"standalone","code":"PROTO-001","color":"blue","photo":"style\/images\/theseus_blue.png","posizione":{"lat":"51.469815","lon":"-0.453877","date":"","address":"Via Ridolfino Venuti 25, Roma, ITALIA"}},{"type":"standalone","code":"PROTO-1X2","color":"black","photo":"style\/images\/theseus_black.png","posizione":{"lat":"41.794756","lon":"12.249127","date":"","address":"Via Leonardo da Vinci, Roma, ITALIA"}}]};
-			//callback();
-			$("#editPositionError").html("An error has occurred in updating data." + textStatus)	;
-			$("#editPositionError").show();
+			$("#editPositionError").html("An error has occurred in updating data.");
 			//appo = setTimeout(getPositionDelayedCall,2000); 
 			return;
 			
