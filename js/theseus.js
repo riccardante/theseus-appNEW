@@ -196,7 +196,7 @@ function showTheseusMap(appo){
 	  id_theseus = appo.data.msg;
 	  
 	  posizione = myTheseusItems[id_theseus]['posizione'];
-	  getAddress();
+	  getAddress(posizione);
 
   //document.getElementById("legend-position").style.display = "block";
   //document.getElementById("legend-actionbar").style.display = "block";
@@ -443,8 +443,8 @@ function getMyTheseus(callBack){
 }
 */
 
-function getAddress(){
-  url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/"+posizione.lon+","+posizione.lat+".json?access_token="+mapboxAccessToken;
+function getAddress(appo){
+  url = "http://api.tiles.mapbox.com/v4/geocode/mapbox.places/"+appo.lon+","+appo.lat+".json?access_token="+mapboxAccessToken;
   $.getJSON( url, function( data ) {
     posizione.address=data.features[0].place_name;
     document.getElementById("span-posizione").innerHTML = posizione.address;
@@ -474,7 +474,7 @@ function _orientationHandler(){
 
 
 /***   POSIZIONE  ***/
-function getPosition(){
+function getMobilePosition(){
   navigator.geolocation.getCurrentPosition(getPositionOnSuccess, getPositionOnError);
 }
 
@@ -531,6 +531,6 @@ window.onload = function () {
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
   //console.log(altezza); // NaN
-  getPosition();
+  getMobilePosition();
   startApp();
 };
