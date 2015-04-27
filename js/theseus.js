@@ -123,7 +123,7 @@ function showDashboardCallback(){
 function showTheseusDetail(appo){
 	  hideAll(["detail", "btn-menu", "menu"]);
 	  id_theseus = appo.data.msg;
-	  //activeTheseus = id_theseus;
+	  activeTheseus = id_theseus;
 
 	  
 	appo = "";
@@ -152,7 +152,7 @@ function showTheseusDetail(appo){
 
 	
 	$("#btn-map").bind("click", {msg:id_theseus}, showTheseusMap);
-	$("#btn-history").bind("click", {msg:id_theseus}, showTheseusHistory);
+	//$("#btn-history").bind("click", {msg:id_theseus}, showTheseusHistory);
 	
 	$("#btn-getPosition").bind("click", {msg:myTheseusItems[id_theseus]["code"]}, getPosition);
 	
@@ -169,10 +169,8 @@ function getPosition(appo){
         url: "http://theseus-sms.azurewebsites.net/updatePosition.php"
 	})
 	.done(function (msg) {
-			myTheseusItems[id_theseus]['posizione'] = msg;
-			showTheseusMap(id_theseus);
+			myTheseusItems[activeTheseus]['posizione'] = msg;
 			appo = setTimeout(getPositionDelayedCall,2000); 
-
         })
 	.fail(function (jqXHR, textStatus, errorThrown) {
 			$("#editPositionError").html("An error has occurred in updating data.");
@@ -186,7 +184,7 @@ function getPosition(appo){
 }
 
 function getPositionDelayedCall(){
-	showTheseusMap(id_theseus);
+	showTheseusMap(activeTheseus);
 }
 
 function showTheseusHistory(appo){
@@ -532,7 +530,9 @@ window.onload = function () {
   
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
+  $("#about-release").html(appVersion);
   //console.log(altezza); // NaN
   getMobilePosition();
   startApp();
+  
 };
