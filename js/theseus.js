@@ -140,7 +140,7 @@ function showTheseusDetail(appo){
 
 	appo += '<button id="btn-map" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show map</button>';
 
-	appo += '<button id="btn-history" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show history</button>';
+	//appo += '<button id="btn-history" class="ui-btn ui-icon-carat-r ui-btn-icon-right ui-shadow ui-corner-all">Show history</button>';
 	appo += '<button id="btn-getPosition" class="ui-btn ui-icon-refresh ui-btn-icon-right ui-shadow ui-corner-all">Update position</button>';
 	appo += '</p>';
 	
