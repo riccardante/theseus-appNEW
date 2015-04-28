@@ -526,7 +526,10 @@ window.onload = function () {
   $("#mnu-logoff").bind("click", logOff);
   $(window).bind('orientationchange', _orientationHandler);
   $(document).bind('orientationchange', _orientationHandler);
-  
+ 
+	document.addEventListener("backbutton", function(e){
+        navigator.app.backHistory()
+	}, false);  
   
   // LISTNER PARAMETRICO  $("#splash").bind("click", VARIABILE, showLoginForm);
 
